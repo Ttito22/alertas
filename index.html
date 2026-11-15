@@ -3,65 +3,100 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#FFF4EA">
+<meta name="theme-color" content="#FFF8F1">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Alertas">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Alertas de passagens · casal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--papel:#FFF8F1;--tinta:#1E2A33;--tinta2:#5C6770;--filete:#EAD9C8;--laranja:#D9733A;--terra:#B4532C;--verde:#3E7A52;--ambar:#B07A1E;--vermelho:#B4442F}
-*{box-sizing:border-box;margin:0;padding:0}
+:root{--papel:#FFF8F1;--cartao:#FFFFFF;--tinta:#1E2A33;--tinta2:#66717A;--filete:#EBDDCF;--laranja:#D9733A;--terra:#B4532C;--ouro:#B97A2E;--verde:#3E7A52;--ambar:#B07A1E;--vermelho:#B4442F}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{background:var(--papel)}
-body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:var(--papel);max-width:560px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 22px) 20px calc(env(safe-area-inset-bottom) + 28px);-webkit-font-smoothing:antialiased}
-h1,h2,.valor{font-family:'Fraunces',Georgia,serif;font-weight:600}
-.sobre{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--laranja);font-weight:700}
-h1{font-size:28px;line-height:1.1;margin-top:6px}
-.meta{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--tinta2);margin-top:10px;padding-bottom:14px;border-bottom:1px solid var(--tinta)}
-.destaque{margin:18px 0 6px;padding:14px 0;border-bottom:1px solid var(--filete)}
-.destaque .sobre{color:var(--terra)}
-.destaque p{font-size:15px;margin-top:6px;line-height:1.45}
-.destaque b{font-family:'Fraunces',serif;font-size:19px}
-h2{font-size:15px;margin:22px 0 2px;display:flex;justify-content:space-between;align-items:baseline}
-h2 small{font:500 11.5px 'DM Sans';color:var(--tinta2)}
-.rota{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:14px 0;border-bottom:1px solid var(--filete);text-decoration:none;color:inherit}
-.rota .tipo{grid-column:1/-1;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta2);font-weight:700}
-.rota .nome{font-size:16px;font-weight:700;align-self:end}
-.rota .valor{font-size:22px;text-align:right;color:var(--tinta);white-space:nowrap}
-.rota .det{font-size:12.5px;color:var(--tinta2);line-height:1.35}
-.rota .lado{text-align:right;font-size:11.5px;color:var(--tinta2);white-space:nowrap}
-.selo{display:inline-block;margin-top:6px;font:700 10px 'DM Sans';letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px}
+body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:var(--papel);max-width:560px;margin:0 auto;padding:0 18px calc(env(safe-area-inset-bottom) + 96px);-webkit-font-smoothing:antialiased}
+.serif{font-family:'Fraunces',Georgia,serif;font-weight:600}
+.cab{position:sticky;top:0;z-index:5;background:var(--papel);padding:calc(env(safe-area-inset-top) + 14px) 0 12px;border-bottom:1px solid var(--tinta);display:flex;align-items:center;gap:12px}
+.cab img{width:38px;height:38px;border-radius:9px}
+.cab h1{font-size:20px;line-height:1.1}
+.cab .sub{font-size:12px;color:var(--tinta2);margin-top:2px}
+.cab button{margin-left:auto;border:1px solid var(--filete);background:var(--cartao);border-radius:6px;padding:8px 11px;font:700 12px 'DM Sans';color:var(--tinta);cursor:pointer}
+.rot{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--tinta2)}
+.hero{margin-top:18px;padding:16px 0 18px;border-bottom:1px solid var(--filete)}
+.hero .rot{color:var(--terra)}
+.hero .linha{margin-top:6px}
+.hero .nome{font-size:16px;font-weight:700}
+.hero .preco{display:block;font-size:36px;line-height:1.05;margin-top:6px;white-space:nowrap}
+.hero .info{font-size:12.5px;color:var(--tinta2);margin-top:6px}
+.total{margin-top:14px;display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:12px 14px;background:var(--cartao);border:1px solid var(--filete);border-radius:6px}
+.total .v{font-size:22px;text-align:right}
+.total small{font-size:11.5px;color:var(--tinta2);grid-column:1/-1}
+.filtros{display:flex;gap:0;margin:20px 0 4px;border:1px solid var(--tinta);border-radius:6px;overflow:hidden}
+.filtros button{flex:1;border:0;background:transparent;padding:9px 0;font:700 12.5px 'DM Sans';color:var(--tinta);cursor:pointer}
+.filtros button+button{border-left:1px solid var(--tinta)}
+.filtros button.on{background:var(--tinta);color:#fff}
+.grupo{font-size:15px;margin:20px 0 4px}
+.rota{padding:14px 0 16px;border-bottom:1px solid var(--filete)}
+.rota .topo{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.rota .nome{font-size:16px;font-weight:700;margin-top:3px}
+.rota .det{font-size:12.5px;color:var(--tinta2);margin-top:3px;line-height:1.35}
+.rota .preco{font-size:24px;text-align:right;white-space:nowrap;line-height:1}
+.rota .casal{font-size:11px;color:var(--tinta2);text-align:right;margin-top:3px}
+.tend{font:700 11.5px 'DM Sans';display:block;text-align:right;margin-top:4px}
+.t-baixou{color:var(--verde)}.t-subiu{color:var(--vermelho)}.t-igual{color:var(--tinta2)}
+.barra{position:relative;height:4px;background:var(--filete);margin:14px 0 4px}
+.barra i{position:absolute;left:0;top:0;bottom:0;background:var(--verde)}
+.barra i.amb{background:var(--ambar)}.barra i.ver{background:var(--vermelho)}
+.barra b{position:absolute;top:-4px;width:2px;height:12px;background:var(--tinta)}
+.barra-leg{display:flex;justify-content:space-between;font-size:11px;color:var(--tinta2)}
+.selo{display:inline-block;font:700 10px 'DM Sans';letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px}
 .s-bom{color:var(--verde)}.s-normal{color:var(--ambar)}.s-caro{color:var(--vermelho)}
-.tend{font-weight:700}.t-baixou{color:var(--verde)}.t-subiu{color:var(--vermelho)}.t-igual{color:var(--tinta2)}
-.abrir{font-size:12px;color:var(--terra);font-weight:700;margin-top:6px;display:inline-block}
+.pe{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:10px}
+.spark{height:28px;width:120px}
+.buscar{text-decoration:none;font:700 13px 'DM Sans';color:#fff;background:var(--terra);padding:9px 14px;border-radius:5px;white-space:nowrap}
+h2{font-size:15px;margin:26px 0 2px;display:flex;justify-content:space-between;align-items:baseline}
+h2 small{font:500 11.5px 'DM Sans';color:var(--tinta2)}
 .hist{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
-.hist th{text-align:right;font-weight:700;color:var(--tinta2);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:6px 0;border-bottom:1px solid var(--tinta)}
+.hist th{text-align:right;font-weight:700;color:var(--tinta2);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 0;border-bottom:1px solid var(--tinta)}
 .hist th:first-child,.hist td:first-child{text-align:left}
-.hist td{text-align:right;padding:7px 0;border-bottom:1px solid var(--filete);font-variant-numeric:tabular-nums}
-.botao{display:block;text-align:center;margin-top:26px;padding:15px;background:var(--tinta);color:#fff;text-decoration:none;font-weight:700;font-size:15px;border-radius:4px}
-.nota{font-size:11.5px;color:var(--tinta2);line-height:1.5;margin-top:14px;text-align:center}
+.hist td{text-align:right;padding:8px 0;border-bottom:1px solid var(--filete);font-variant-numeric:tabular-nums}
+.hist td.min{color:var(--verde);font-weight:700}
+.nota{font-size:11.5px;color:var(--tinta2);line-height:1.5;margin-top:16px}
+.rodape{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(to top,var(--papel) 70%,rgba(255,248,241,0));padding:14px 18px calc(env(safe-area-inset-bottom) + 14px)}
+.rodape a{display:block;max-width:524px;margin:0 auto;text-align:center;padding:14px;background:var(--tinta);color:#fff;text-decoration:none;font-weight:700;font-size:15px;border-radius:6px}
+.off{display:none;margin-top:10px;font-size:12px;color:var(--terra);font-weight:700}
 </style>
 </head>
 <body>
 
-<div class="sobre">Alerta pessoal · casal (2 pessoas)</div>
-<h1>Passagens de hoje</h1>
-<div class="meta"><span id="quando"></span><span>Google Voos e Skyscanner</span></div>
+<header class="cab">
+  <img src="icon-192.png" alt="">
+  <div><h1 class="serif">Alertas de passagens</h1><div class="sub" id="quando"></div></div>
+  <button id="recarregar" aria-label="Atualizar">↻ Atualizar</button>
+</header>
+<div class="off" id="off">Sem internet: mostrando a última atualização salva.</div>
 
-<div class="destaque"><div class="sobre">Melhor oferta agora</div><p id="melhor"></p></div>
+<section class="hero" id="hero"></section>
+<div class="total" id="total"></div>
+
+<div class="filtros" id="filtros">
+  <button data-f="todas" class="on">Todas</button>
+  <button data-f="eu">Europa</button>
+  <button data-f="sl">Lençóis</button>
+</div>
 
 <div id="lista"></div>
 
-<h2>Últimas verificações <small>valores do casal</small></h2>
+<h2 class="serif">Últimas verificações <small>valores do casal</small></h2>
 <table class="hist" id="hist"></table>
 
-<a class="botao" href="https://claude.ai/artifact/VgHiaeeHaKnBcGC8WEHTv1" target="_blank" rel="noopener">Ver histórico completo →</a>
-<p class="nota">Preços "a partir de", em reais, sem compra nem reserva. Confirme no site antes de pagar e veja se a mala está incluída.</p>
+<p class="nota">Preços "a partir de", sempre em reais e para o casal (2 pessoas). Pesquisados só no Google Voos e no Skyscanner, 3 vezes por dia (7h41, 15h41 e 20h41). Nada é comprado ou reservado: confirme no site antes de pagar e veja se a mala está incluída.</p>
+
+<nav class="rodape"><a href="https://claude.ai/artifact/VgHiaeeHaKnBcGC8WEHTv1" target="_blank" rel="noopener">Ver histórico completo →</a></nav>
 
 <!-- DADOS: a tarefa agendada atualiza só este bloco -->
 <script id="alertas" type="application/json">
@@ -84,30 +119,67 @@ h2 small{font:500 11.5px 'DM Sans';color:var(--tinta2)}
 let D={rotas:[],historico:[]};
 try{D=JSON.parse(document.getElementById('alertas').textContent)}catch(e){}
 const f=n=>n==null?'sem tarifa':'R$ '+Math.round(n).toLocaleString('pt-BR');
+const $=id=>document.getElementById(id);
 const T={baixou:['t-baixou','⬇ baixou'],subiu:['t-subiu','⬆ subiu'],igual:['t-igual','= igual']};
-document.getElementById('quando').textContent='Atualizado '+(D.atualizado||'');
-// melhor oferta: a de maior folga abaixo do "bom preço"; sem referência, a mais barata
+const R=Object.fromEntries(D.rotas.map(r=>[r.id,r]));
+const H=D.historico||[];
+$('quando').textContent='Atualizado '+(D.atualizado||'')+(D.periodo?' · '+D.periodo:'');
+if(!navigator.onLine)$('off').style.display='block';
+$('recarregar').onclick=()=>location.reload();
+
+// melhor oferta: maior folga abaixo do bom preço
 let best=null,folga=-1e9;
 D.rotas.forEach(r=>{if(r.valor==null)return;const g=r.bom?(r.bom-r.valor)/r.bom:-1;if(g>folga){folga=g;best=r}});
-document.getElementById('melhor').innerHTML=best?`${best.nome}: <b>${f(best.valor)}</b> o casal · <a href="${best.link}" style="color:var(--terra);font-weight:700">ver no ${best.fonte} ↗</a>`:'Sem tarifa encontrada nesta verificação.';
-let grupo='',html='';
-D.rotas.forEach(r=>{
-  if(r.grupo!==grupo){grupo=r.grupo;html+=`<h2>${grupo}</h2>`;}
-  let selo='';
-  if(r.bom&&r.valor!=null){selo=r.valor<=r.bom*0.85?['s-bom','Bom preço']:r.valor<=r.bom?['s-normal','Dentro do bom preço']:['s-caro','Acima do bom preço'];selo=`<span class="selo ${selo[0]}">${selo[1]}</span>`;}
+$('hero').innerHTML=best?`<div class="rot">Melhor oferta agora</div>
+ <div class="linha"><span class="nome">${best.nome}</span><span class="preco serif">${f(best.valor)}</span></div>
+ <div class="info">${best.tipo} · casal · ${best.det}${best.bom?` · ${Math.round(folga*100)}% abaixo do bom preço`:''}</div>`:'<div class="rot">Sem tarifa encontrada nesta verificação</div>';
+
+// viagem Europa completa = ida mais barata + volta de Roma
+const ida=[R.mad,R.bcn].filter(r=>r&&r.valor!=null).sort((a,b)=>a.valor-b.valor)[0];
+if(ida&&R.rom&&R.rom.valor!=null){
+  $('total').innerHTML=`<span><span class="rot">Europa completa</span><br><b style="font-size:14px">${ida.nome.split(' → ')[1]} + volta de Roma</b></span><span class="v serif">${f(ida.valor+R.rom.valor)}</span><small>Soma da ida mais barata com a volta de Roma, o casal. Não inclui o trecho até Salvador ou São Paulo.</small>`;
+}else $('total').style.display='none';
+
+function spark(id){
+  const v=H.map(h=>h[id]).filter(x=>x!=null);
+  if(v.length<2)return '<span style="font-size:11px;color:var(--tinta2)">histórico começa hoje</span>';
+  const mn=Math.min(...v),mx=Math.max(...v),w=120,h=28,p=3;
+  const pts=v.map((x,i)=>[p+i*(w-2*p)/(v.length-1),mx===mn?h/2:h-p-(x-mn)/(mx-mn)*(h-2*p)]);
+  const last=pts[pts.length-1];
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}"><polyline fill="none" stroke="#1E2A33" stroke-width="1.5" points="${pts.map(q=>q.map(n=>n.toFixed(1)).join(',')).join(' ')}"/><circle cx="${last[0]}" cy="${last[1]}" r="2.8" fill="#B4532C"/></svg>`;
+}
+function card(r){
   const t=T[r.tend]||T.igual;
-  html+=`<a class="rota" href="${r.link}">
-    <span class="tipo">${r.tipo}</span>
-    <span class="nome">${r.nome}</span><span class="valor">${f(r.valor)}</span>
-    <span class="det">${r.det}${r.bom?`<br>Bom preço: abaixo de ${f(r.bom)}`:''}<br>${selo}</span>
-    <span class="lado"><span class="tend ${t[0]}">${t[1]}</span><br>casal<br><span class="abrir">${r.fonte} ↗</span></span>
-  </a>`;
-});
-document.getElementById('lista').innerHTML=html;
-const cols=[['mad','Madri'],['bcn','Barcelona'],['rom','Roma'],['slz','Lençóis']];
-document.getElementById('hist').innerHTML='<tr><th>Quando</th>'+cols.map(c=>`<th>${c[1]}</th>`).join('')+'</tr>'+
-  D.historico.slice(-9).reverse().map(h=>`<tr><td>${h.quando}</td>`+cols.map(c=>`<td>${h[c[0]]==null?'·':Math.round(h[c[0]]).toLocaleString('pt-BR')}</td>`).join('')+'</tr>').join('');
+  let barra='',selo='';
+  if(r.bom&&r.valor!=null){
+    const pct=Math.min(100,r.valor/(r.bom*1.25)*100),mark=100/1.25;
+    const c=r.valor<=r.bom*0.85?['','s-bom','Bom preço']:r.valor<=r.bom?['amb','s-normal','Dentro do bom preço']:['ver','s-caro','Acima do bom preço'];
+    barra=`<div class="barra"><i class="${c[0]}" style="width:${pct}%"></i><b style="left:${mark}%"></b></div><div class="barra-leg"><span><span class="selo ${c[1]}">${c[2]}</span></span><span>limite ${f(r.bom)}</span></div>`;
+  }
+  return `<div class="rota">
+   <div class="topo"><div><div class="rot">${r.tipo}</div><div class="nome">${r.nome}</div><div class="det">${r.det}</div></div>
+   <div><div class="preco serif">${f(r.valor)}</div><div class="casal">casal</div><span class="tend ${t[0]}">${t[1]}</span></div></div>
+   ${barra}
+   <div class="pe">${spark(r.id)}<a class="buscar" href="${r.link}" target="_blank" rel="noopener">Buscar no ${r.fonte} ↗</a></div>
+  </div>`;
+}
+function render(fl){
+  let g='',html='';
+  D.rotas.filter(r=>fl==='todas'||(fl==='eu'?r.id!=='slz':r.id==='slz')).forEach(r=>{
+    if(r.grupo!==g){g=r.grupo;html+=`<h3 class="grupo serif">${g}</h3>`;}
+    html+=card(r);
+  });
+  $('lista').innerHTML=html;
+}
+$('filtros').onclick=e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('#filtros button').forEach(x=>x.classList.toggle('on',x===b));render(b.dataset.f)};
+render('todas');
+
+const cols=[['mad','Madri'],['bcn','Barcel.'],['rom','Roma'],['slz','Lençóis']];
+const mins=Object.fromEntries(cols.map(c=>[c[0],Math.min(...H.map(h=>h[c[0]]).filter(x=>x!=null))]));
+$('hist').innerHTML='<tr><th>Quando</th>'+cols.map(c=>`<th>${c[1]}</th>`).join('')+'</tr>'+
+  H.slice(-12).reverse().map(h=>`<tr><td>${h.quando}</td>`+cols.map(c=>`<td class="${h[c[0]]!=null&&h[c[0]]===mins[c[0]]&&H.length>1?'min':''}">${h[c[0]]==null?'·':Math.round(h[c[0]]).toLocaleString('pt-BR')}</td>`).join('')+'</tr>').join('');
+
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
 </script>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}</script>
 </body>
 </html>
