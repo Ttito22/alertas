@@ -69,6 +69,10 @@ h2 small{font:500 11.5px 'DM Sans';color:var(--tinta2)}
 .rodape{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(to top,var(--papel) 70%,rgba(255,248,241,0));padding:14px 18px calc(env(safe-area-inset-bottom) + 14px)}
 .rodape a{display:block;max-width:524px;margin:0 auto;text-align:center;padding:14px;background:var(--tinta);color:#fff;text-decoration:none;font-weight:700;font-size:15px;border-radius:6px}
 .off{display:none;margin-top:10px;font-size:12px;color:var(--terra);font-weight:700}
+.notif{margin-top:22px;padding:14px 0 4px;border-top:1px solid var(--tinta)}
+.notif p{font-size:12.5px;color:var(--tinta2);line-height:1.45;margin-top:6px}
+.notif button{margin-top:10px;border:1px solid var(--tinta);background:var(--cartao);border-radius:6px;padding:10px 14px;font:700 13px 'DM Sans';color:var(--tinta);cursor:pointer}
+.notif textarea{width:100%;margin-top:10px;font:11px ui-monospace,monospace;padding:8px;border:1px solid var(--filete);border-radius:4px;background:var(--cartao);color:var(--tinta);height:74px;resize:none}
 </style>
 </head>
 <body>
@@ -95,6 +99,17 @@ h2 small{font:500 11.5px 'DM Sans';color:var(--tinta2)}
 <table class="hist" id="hist"></table>
 
 <p class="nota">Preços "a partir de", sempre em reais e para o casal (2 pessoas). Pesquisados só no Google Voos e no Skyscanner, 3 vezes por dia (7h41, 15h41 e 20h41). Nada é comprado ou reservado: confirme no site antes de pagar e veja se a mala está incluída.</p>
+
+<section class="notif" id="notif">
+  <div class="rot">Notificações no celular</div>
+  <p id="notif-msg">Receba os preços aqui, direto do app, a cada verificação. Tocar na notificação abre este app.</p>
+  <button id="notif-btn">🔔 Ativar notificações</button>
+  <div id="notif-cod" style="display:none">
+    <p>Pronto. Copie o código abaixo e envie para o Claude na conversa (só precisa fazer uma vez):</p>
+    <textarea id="notif-txt" readonly></textarea>
+    <button id="notif-copiar">Copiar código</button>
+  </div>
+</section>
 
 <nav class="rodape"><a href="https://claude.ai/artifact/VgHiaeeHaKnBcGC8WEHTv1" target="_blank" rel="noopener">Ver histórico completo →</a></nav>
 
@@ -180,6 +195,36 @@ $('hist').innerHTML='<tr><th>Quando</th>'+cols.map(c=>`<th>${c[1]}</th>`).join('
   H.slice(-12).reverse().map(h=>`<tr><td>${h.quando}</td>`+cols.map(c=>`<td class="${h[c[0]]!=null&&h[c[0]]===mins[c[0]]&&H.length>1?'min':''}">${h[c[0]]==null?'·':Math.round(h[c[0]]).toLocaleString('pt-BR')}</td>`).join('')+'</tr>').join('');
 
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+
+// Notificações do próprio app (Web Push)
+const VAPID='BPvkP4lDxZDdncfS5HcYAtJhbB10l_zbDb6RhWZNQhCRvAMJvRGCQ_LM4Dg0PoXkPjD1Rf-myt2LbRKSfN2aY8A';
+const chave=s=>{const p='='.repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))};
+const nmsg=t=>$('notif-msg').textContent=t;
+const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+const instalado=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+function mostrarCodigo(sub){
+  const cod=btoa(unescape(encodeURIComponent(JSON.stringify(sub)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  $('notif-txt').value=cod;$('notif-cod').style.display='block';
+}
+if(!('PushManager' in window)||!('serviceWorker' in navigator)){
+  if(ios&&!instalado){nmsg('No iPhone, primeiro instale o app: no Safari, toque em Compartilhar e depois em "Adicionar à Tela de Início". Abra o app pelo ícone e volte aqui.');}
+  else nmsg('Este navegador não aceita notificações de app. Use o Chrome (Android) ou instale na Tela de Início pelo Safari (iPhone).');
+  $('notif-btn').style.display='none';
+}else{
+  navigator.serviceWorker.ready.then(r=>r.pushManager.getSubscription()).then(s=>{if(s&&Notification.permission==='granted'){$('notif-btn').textContent='🔔 Notificações ativas · mostrar código';}}).catch(()=>{});
+  $('notif-btn').onclick=async()=>{
+    try{
+      const p=await Notification.requestPermission();
+      if(p!=='granted'){nmsg('As notificações ficaram bloqueadas. Libere nas configurações do celular para este app e tente de novo.');return}
+      const r=await navigator.serviceWorker.ready;
+      let s=await r.pushManager.getSubscription();
+      if(!s)s=await r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:chave(VAPID)});
+      mostrarCodigo(s.toJSON());
+      r.showNotification('Notificações ativadas',{body:'Depois que o código for configurado, os preços chegam por aqui.',icon:'icon-192.png'});
+    }catch(e){nmsg('Não deu para ativar agora ('+e.message+'). Tente de novo com o app aberto pelo ícone.')}
+  };
+  $('notif-copiar').onclick=()=>{const t=$('notif-txt');t.select();(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(()=>{$('notif-copiar').textContent='Copiado ✓'}).catch(()=>{document.execCommand('copy');$('notif-copiar').textContent='Copiado ✓'})};
+}
 </script>
 </body>
 </html>
