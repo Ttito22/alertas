@@ -100,7 +100,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:va
 <section class="cadastro"><div class="rot">Datas cadastradas</div>
   <p><b>Europa:</b> ida em março, abril ou maio de 2027, chegando em Madri ou Barcelona; volta saindo de Roma 20 dias depois.</p>
   <p><b>Lençóis:</b> Salvador → São Luís com ida de 27 a 30/07/2027 e volta em 02/08/2027.</p>
-  <p>A busca olha até 1 ano à frente, mas o preço só vale para essas datas. O botão abre o site já na data mostrada, para 2 adultos.</p>
+  <p>A busca olha até 1 ano à frente, mas o preço só vale para essas datas. O botão abre o site já na data mostrada. No Google Voos o preço aparece por pessoa; no app é sempre o casal.</p>
 </section>
 
 <nav class="rodape"><a href="https://claude.ai/artifact/VgHiaeeHaKnBcGC8WEHTv1" target="_blank" rel="noopener">Ver histórico completo →</a></nav>
@@ -116,14 +116,14 @@ body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:va
    "grupo": "Europa · mar a mai/2027 · 20 dias",
    "tipo": "Ida · só ida",
    "nome": "Salvador → Madri",
-   "valor": null,
+   "valor": 5350,
    "bom": 4182,
-   "det": "Aguardando a verificação nas datas cadastradas",
+   "det": "TAP, 1 conexão em Lisboa",
    "tend": "igual",
    "fonte": "Google Voos",
    "de": "SSA",
    "para": "MAD",
-   "ida": null,
+   "ida": "2027-03-10",
    "volta": null
   },
   {
@@ -131,14 +131,14 @@ body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:va
    "grupo": "Europa · mar a mai/2027 · 20 dias",
    "tipo": "Ida · só ida",
    "nome": "São Paulo → Barcelona",
-   "valor": null,
+   "valor": 5372,
    "bom": 4358,
-   "det": "Aguardando a verificação nas datas cadastradas",
+   "det": "Avianca, 1 conexão em Bogotá",
    "tend": "igual",
    "fonte": "Google Voos",
    "de": "GRU",
    "para": "BCN",
-   "ida": null,
+   "ida": "2027-03-08",
    "volta": null
   },
   {
@@ -146,14 +146,14 @@ body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:va
    "grupo": "Europa · mar a mai/2027 · 20 dias",
    "tipo": "Volta · só ida, 20 dias depois",
    "nome": "Roma → Salvador ou São Paulo",
-   "valor": null,
+   "valor": 4408,
    "bom": 6408,
-   "det": "Aguardando a verificação nas datas cadastradas",
+   "det": "Iberia, 1 conexão em Madri · até Salvador R$ 4.984",
    "tend": "igual",
    "fonte": "Google Voos",
    "de": "FCO",
-   "para": "SSA",
-   "ida": null,
+   "para": "GRU",
+   "ida": "2027-03-30",
    "volta": null
   },
   {
@@ -161,18 +161,26 @@ body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:va
    "grupo": "Lençóis Maranhenses · 27/07 a 02/08/2027",
    "tipo": "Ida e volta",
    "nome": "Salvador ↔ São Luís",
-   "valor": null,
+   "valor": 3008,
    "bom": null,
-   "det": "Aguardando a verificação nas datas cadastradas",
+   "det": "LATAM, 1 conexão em Fortaleza · mesmo preço com ida em 30/07",
    "tend": "igual",
-   "fonte": "Skyscanner",
+   "fonte": "Google Voos",
    "de": "SSA",
    "para": "SLZ",
    "ida": "2027-07-27",
    "volta": "2027-08-02"
   }
  ],
- "historico": [],
+ "historico": [
+  {
+   "quando": "15/11 noite",
+   "mad": 5350,
+   "bcn": 5372,
+   "rom": 4408,
+   "slz": 3008
+  }
+ ],
  "cadastro": {
   "europa": {
    "ida_de": "2027-03-01",
@@ -209,8 +217,8 @@ function valida(r){
 // links montados a partir das datas da tarifa: o site abre na mesma data, para 2 adultos
 function links(r){
   const yy=s=>s.slice(2).replace(/-/g,'');
-  const g='https://www.google.com/travel/flights?hl=pt-BR&gl=BR&curr=BRL&q='+encodeURIComponent(
-    `Flights from ${r.de} to ${r.para} on ${r.ida}`+(r.volta?` returning ${r.volta}`:' one way')+' 2 adults economy');
+  const g='https://www.google.com/travel/flights?q='+encodeURIComponent(
+    `Flights to ${r.para} from ${r.de} on ${r.ida}`+(r.volta?` through ${r.volta}`:' one way'))+'&hl=pt-BR&gl=BR&curr=BRL';
   const s=`https://www.skyscanner.com.br/transporte/passagens-aereas/${r.de.toLowerCase()}/${r.para.toLowerCase()}/${yy(r.ida)}/`+(r.volta?yy(r.volta)+'/':'')+`?adultsv2=2&cabinclass=economy&rtn=${r.volta?1:0}`;
   return {g,s};
 }
