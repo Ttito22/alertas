@@ -133,7 +133,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:va
    "nome": "São Paulo → Barcelona",
    "valor": 5371,
    "bom": 4358,
-   "det": "Avianca, 1 conexão em Bogotá · saindo de Salvador R$ 5.685 (10/03)",
+   "det": "Avianca, 1 conexão em Bogotá",
    "tend": "igual",
    "fonte": "Google Voos",
    "de": "GRU",
@@ -148,7 +148,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:va
    "nome": "Roma → São Paulo",
    "valor": 4486,
    "bom": 6408,
-   "det": "Iberia, 1 conexão em Madri · até Salvador a partir de R$ 4.970",
+   "det": "Iberia, 1 conexão em Madri (espera de 12h50) · até Salvador: LATAM R$ 5.014, 1 conexão em Guarulhos",
    "tend": "subiu",
    "fonte": "Google Voos",
    "de": "FCO",
@@ -163,7 +163,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:va
    "nome": "Salvador ↔ São Luís",
    "valor": 3007,
    "bom": null,
-   "det": "LATAM, 1 conexão em Fortaleza · mesmo preço com ida em 29 ou 30/07",
+   "det": "LATAM, 1 conexão em Fortaleza · com ida em 30/07 também R$ 3.007 (LATAM, conexão em Brasília)",
    "tend": "igual",
    "fonte": "Google Voos",
    "de": "SSA",
@@ -304,7 +304,7 @@ function card(r){
     <div class="det">${r.det}</div>
     ${barra}
     <div class="pe">${spark(r.id)}${r.link?`<a class="buscar" href="${r.link}" target="_blank" rel="noopener">${r.fonte} ↗</a>`:''}</div>
-    ${r.outro?`<a class="outro" href="${r.outro[1]}" target="_blank" rel="noopener">Conferir no ${r.outro[0]} ↗</a>`:''}
+
   </article>`;
 }
 
