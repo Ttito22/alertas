@@ -72,6 +72,10 @@ body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:va
 .card .pe{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:14px}
 .spark{height:28px;width:100px}
 .buscar{text-decoration:none;font:700 13px 'DM Sans';color:#fff;background:var(--terra);padding:9px 13px;border-radius:5px;white-space:nowrap}
+.datas{font:700 12.5px 'DM Sans';color:var(--tinta);margin-top:8px}
+.outro{display:block;text-align:right;font-size:12px;color:var(--tinta2);margin-top:8px}
+.cadastro{margin:28px 18px 0;padding-top:12px;border-top:1px solid var(--filete);font-size:12.5px;color:var(--tinta2);line-height:1.5}
+.cadastro b{color:var(--tinta)}
 .pontos{display:flex;justify-content:center;gap:6px;margin-top:6px}
 .pontos i{width:6px;height:6px;border-radius:50%;background:var(--filete)}
 .pontos i.on{background:var(--tinta)}
@@ -93,22 +97,94 @@ body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:va
 
 <div id="secoes"></div>
 
+<section class="cadastro"><div class="rot">Datas cadastradas</div>
+  <p><b>Europa:</b> ida em março, abril ou maio de 2027, chegando em Madri ou Barcelona; volta saindo de Roma 20 dias depois.</p>
+  <p><b>Lençóis:</b> Salvador → São Luís com ida de 27 a 30/07/2027 e volta em 02/08/2027.</p>
+  <p>A busca olha até 1 ano à frente, mas o preço só vale para essas datas. O botão abre o site já na data mostrada, para 2 adultos.</p>
+</section>
+
 <nav class="rodape"><a href="https://claude.ai/artifact/VgHiaeeHaKnBcGC8WEHTv1" target="_blank" rel="noopener">Ver histórico completo →</a></nav>
 
 <!-- DADOS: a tarefa agendada atualiza só este bloco -->
 <script id="alertas" type="application/json">
 {
-  "atualizado": "15/11/2026 às 14h",
-  "periodo": "tarde",
-  "rotas": [
-    {"id":"mad","grupo":"Europa · mar a mai/2027","tipo":"Ida · só ida","nome":"Salvador → Madri","valor":3432,"bom":4182,"det":"TAP, 1 conexão · datas próximas","tend":"igual","link":"https://www.google.com/travel/flights/flights-from-salvador-to-madrid.html?gl=BR&hl=pt-BR","fonte":"Google Voos"},
-    {"id":"bcn","grupo":"Europa · mar a mai/2027","tipo":"Ida · só ida","nome":"São Paulo → Barcelona","valor":3586,"bom":4358,"det":"Air Europa, 1 conexão · datas próximas","tend":"igual","link":"https://www.google.com/travel/flights/flights-from-sao-paulo-to-barcelona.html?gl=BR&hl=pt-BR","fonte":"Google Voos"},
-    {"id":"rom","grupo":"Europa · mar a mai/2027","tipo":"Volta · só ida, ~21 dias depois","nome":"Roma → Salvador ou São Paulo","valor":4610,"bom":6408,"det":"Até Salvador; até São Paulo R$ 4.616","tend":"igual","link":"https://www.google.com/travel/flights/flights-from-rome-to-sao-paulo.html?gl=BR&hl=pt-BR","fonte":"Google Voos"},
-    {"id":"slz","grupo":"Lençóis Maranhenses · 25/07 a 05/08/2027","tipo":"Ida e volta","nome":"Salvador ↔ São Luís","valor":1514,"bom":null,"det":"GOL tem voo direto (cerca de 2h15) · julho é alta temporada","tend":"igual","link":"https://www.skyscanner.com.br/rotas/ssa/slz/salvador-para-sao-luis.html","fonte":"Skyscanner"}
-  ],
-  "historico": [
-    {"quando":"15/11 tarde","mad":3432,"bcn":3586,"rom":4610,"slz":1514}
-  ]
+ "atualizado": "15/11/2026 às 19h",
+ "periodo": "noite",
+ "rotas": [
+  {
+   "id": "mad",
+   "grupo": "Europa · mar a mai/2027 · 20 dias",
+   "tipo": "Ida · só ida",
+   "nome": "Salvador → Madri",
+   "valor": null,
+   "bom": 4182,
+   "det": "Aguardando a verificação nas datas cadastradas",
+   "tend": "igual",
+   "fonte": "Google Voos",
+   "de": "SSA",
+   "para": "MAD",
+   "ida": null,
+   "volta": null
+  },
+  {
+   "id": "bcn",
+   "grupo": "Europa · mar a mai/2027 · 20 dias",
+   "tipo": "Ida · só ida",
+   "nome": "São Paulo → Barcelona",
+   "valor": null,
+   "bom": 4358,
+   "det": "Aguardando a verificação nas datas cadastradas",
+   "tend": "igual",
+   "fonte": "Google Voos",
+   "de": "GRU",
+   "para": "BCN",
+   "ida": null,
+   "volta": null
+  },
+  {
+   "id": "rom",
+   "grupo": "Europa · mar a mai/2027 · 20 dias",
+   "tipo": "Volta · só ida, 20 dias depois",
+   "nome": "Roma → Salvador ou São Paulo",
+   "valor": null,
+   "bom": 6408,
+   "det": "Aguardando a verificação nas datas cadastradas",
+   "tend": "igual",
+   "fonte": "Google Voos",
+   "de": "FCO",
+   "para": "SSA",
+   "ida": null,
+   "volta": null
+  },
+  {
+   "id": "slz",
+   "grupo": "Lençóis Maranhenses · 27/07 a 02/08/2027",
+   "tipo": "Ida e volta",
+   "nome": "Salvador ↔ São Luís",
+   "valor": null,
+   "bom": null,
+   "det": "Aguardando a verificação nas datas cadastradas",
+   "tend": "igual",
+   "fonte": "Skyscanner",
+   "de": "SSA",
+   "para": "SLZ",
+   "ida": "2027-07-27",
+   "volta": "2027-08-02"
+  }
+ ],
+ "historico": [],
+ "cadastro": {
+  "europa": {
+   "ida_de": "2027-03-01",
+   "ida_ate": "2027-05-31",
+   "dias": 20
+  },
+  "slz": {
+   "ida_de": "2027-07-27",
+   "ida_ate": "2027-07-30",
+   "volta": "2027-08-02"
+  }
+ }
 }
 </script>
 
@@ -118,6 +194,33 @@ try{D=JSON.parse(document.getElementById('alertas').textContent)}catch(e){}
 const f=n=>n==null?'sem tarifa':'R$ '+Math.round(n).toLocaleString('pt-BR');
 const $=id=>document.getElementById(id);
 const T={baixou:['t-baixou','⬇ baixou'],subiu:['t-subiu','⬆ subiu'],igual:['t-igual','= igual']};
+const C=D.cadastro||{};
+const br=s=>s?s.split('-').reverse().join('/'):'';
+const soma=(s,n)=>{const d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
+// confere se as datas da tarifa estão dentro do cadastro
+function valida(r){
+  if(!r.ida)return false;
+  const e=C.europa||{},l=C.slz||{};
+  if(r.id==='mad'||r.id==='bcn')return r.ida>=e.ida_de&&r.ida<=e.ida_ate;
+  if(r.id==='rom')return r.ida>=soma(e.ida_de,e.dias)&&r.ida<=soma(e.ida_ate,e.dias);
+  if(r.id==='slz')return r.ida>=l.ida_de&&r.ida<=l.ida_ate&&r.volta===l.volta;
+  return true;
+}
+// links montados a partir das datas da tarifa: o site abre na mesma data, para 2 adultos
+function links(r){
+  const yy=s=>s.slice(2).replace(/-/g,'');
+  const g='https://www.google.com/travel/flights?hl=pt-BR&gl=BR&curr=BRL&q='+encodeURIComponent(
+    `Flights from ${r.de} to ${r.para} on ${r.ida}`+(r.volta?` returning ${r.volta}`:' one way')+' 2 adults economy');
+  const s=`https://www.skyscanner.com.br/transporte/passagens-aereas/${r.de.toLowerCase()}/${r.para.toLowerCase()}/${yy(r.ida)}/`+(r.volta?yy(r.volta)+'/':'')+`?adultsv2=2&cabinclass=economy&rtn=${r.volta?1:0}`;
+  return {g,s};
+}
+D.rotas.forEach(r=>{
+  if(!r.ida&&r.id==='slz'){r.ida=C.slz&&C.slz.ida_de;r.volta=C.slz&&C.slz.volta}
+  r.ok=valida(r);
+  if(!r.ok){r.valor=null;if(r.ida)r.det='Tarifa fora das datas cadastradas: aguardando nova verificação'}
+  r.datas=r.ida?(r.volta?`Ida ${br(r.ida)} · volta ${br(r.volta)}`:`Voo em ${br(r.ida)}`):'Data a definir na verificação';
+  if(r.ida){const L=links(r);r.link=r.fonte==='Skyscanner'?L.s:L.g;r.outro=r.fonte==='Skyscanner'?['Google Voos',L.g]:['Skyscanner',L.s]}
+});
 const R=Object.fromEntries(D.rotas.map(r=>[r.id,r]));
 const H=D.historico||[];
 
@@ -149,13 +252,14 @@ if(best){
     <div class="rot">${best.tipo}</div>
     <div class="nome" style="margin-top:4px">${best.nome}</div>
     <div class="preco serif">${f(best.valor)}<small>o casal</small></div>
+    <div class="datas">${best.datas}</div>
     <div class="info">${best.det}${best.bom?` · ${Math.round(folga*100)}% abaixo do bom preço`:''}</div>
     <div class="acao">${st?`<span class="selo ${st[1]}">${st[2]}</span>`:'<span></span>'}<a class="buscar" href="${best.link}" target="_blank" rel="noopener">Buscar no ${best.fonte} ↗</a></div>
   </div>`;
 }else painel='<div class="corpo"><div class="rot">Sem tarifa encontrada nesta verificação</div></div>';
 const ida=[R.mad,R.bcn].filter(r=>r&&r.valor!=null).sort((a,b)=>a.valor-b.valor)[0];
-if(ida&&R.rom&&R.rom.valor!=null){
-  painel+=`<div class="euro"><div><b>Europa completa</b><small>${ida.nome.split(' → ')[1]} + volta de Roma</small></div><span class="v serif">${f(ida.valor+R.rom.valor)}</span></div>`;
+if(ida&&R.rom&&R.rom.valor!=null&&R.rom.ida===soma(ida.ida,(C.europa||{}).dias||20)){
+  painel+=`<div class="euro"><div><b>Europa completa</b><small>${ida.nome.split(' → ')[1]} ${br(ida.ida)} + volta de Roma ${br(R.rom.ida)}</small></div><span class="v serif">${f(ida.valor+R.rom.valor)}</span></div>`;
 }
 $('painel').innerHTML=painel;
 
@@ -178,9 +282,11 @@ function card(r){
     <div class="rot">${r.tipo}</div>
     <div class="nome">${r.nome}</div>
     <div class="linha"><div><div class="preco serif">${f(r.valor)}</div><div class="casal">o casal</div></div><span class="tend ${t[0]}">${t[1]}</span></div>
+    <div class="datas">${r.datas}</div>
     <div class="det">${r.det}</div>
     ${barra}
-    <div class="pe">${spark(r.id)}<a class="buscar" href="${r.link}" target="_blank" rel="noopener">${r.fonte} ↗</a></div>
+    <div class="pe">${spark(r.id)}${r.link?`<a class="buscar" href="${r.link}" target="_blank" rel="noopener">${r.fonte} ↗</a>`:''}</div>
+    ${r.outro?`<a class="outro" href="${r.outro[1]}" target="_blank" rel="noopener">Conferir no ${r.outro[0]} ↗</a>`:''}
   </article>`;
 }
 
