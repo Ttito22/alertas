@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FFF4EA">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Alertas">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Alertas de passagens · casal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--papel:#FFF8F1;--tinta:#1E2A33;--tinta2:#5C6770;--filete:#EAD9C8;--laranja:#D9733A;--terra:#B4532C;--verde:#3E7A52;--ambar:#B07A1E;--vermelho:#B4442F}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--papel)}
+body{font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:var(--papel);max-width:560px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 22px) 20px calc(env(safe-area-inset-bottom) + 28px);-webkit-font-smoothing:antialiased}
+h1,h2,.valor{font-family:'Fraunces',Georgia,serif;font-weight:600}
+.sobre{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--laranja);font-weight:700}
+h1{font-size:28px;line-height:1.1;margin-top:6px}
+.meta{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--tinta2);margin-top:10px;padding-bottom:14px;border-bottom:1px solid var(--tinta)}
+.destaque{margin:18px 0 6px;padding:14px 0;border-bottom:1px solid var(--filete)}
+.destaque .sobre{color:var(--terra)}
+.destaque p{font-size:15px;margin-top:6px;line-height:1.45}
+.destaque b{font-family:'Fraunces',serif;font-size:19px}
+h2{font-size:15px;margin:22px 0 2px;display:flex;justify-content:space-between;align-items:baseline}
+h2 small{font:500 11.5px 'DM Sans';color:var(--tinta2)}
+.rota{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:14px 0;border-bottom:1px solid var(--filete);text-decoration:none;color:inherit}
+.rota .tipo{grid-column:1/-1;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta2);font-weight:700}
+.rota .nome{font-size:16px;font-weight:700;align-self:end}
+.rota .valor{font-size:22px;text-align:right;color:var(--tinta);white-space:nowrap}
+.rota .det{font-size:12.5px;color:var(--tinta2);line-height:1.35}
+.rota .lado{text-align:right;font-size:11.5px;color:var(--tinta2);white-space:nowrap}
+.selo{display:inline-block;margin-top:6px;font:700 10px 'DM Sans';letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px}
+.s-bom{color:var(--verde)}.s-normal{color:var(--ambar)}.s-caro{color:var(--vermelho)}
+.tend{font-weight:700}.t-baixou{color:var(--verde)}.t-subiu{color:var(--vermelho)}.t-igual{color:var(--tinta2)}
+.abrir{font-size:12px;color:var(--terra);font-weight:700;margin-top:6px;display:inline-block}
+.hist{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.hist th{text-align:right;font-weight:700;color:var(--tinta2);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:6px 0;border-bottom:1px solid var(--tinta)}
+.hist th:first-child,.hist td:first-child{text-align:left}
+.hist td{text-align:right;padding:7px 0;border-bottom:1px solid var(--filete);font-variant-numeric:tabular-nums}
+.botao{display:block;text-align:center;margin-top:26px;padding:15px;background:var(--tinta);color:#fff;text-decoration:none;font-weight:700;font-size:15px;border-radius:4px}
+.nota{font-size:11.5px;color:var(--tinta2);line-height:1.5;margin-top:14px;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="sobre">Alerta pessoal · casal (2 pessoas)</div>
+<h1>Passagens de hoje</h1>
+<div class="meta"><span id="quando"></span><span>Google Voos e Skyscanner</span></div>
+
+<div class="destaque"><div class="sobre">Melhor oferta agora</div><p id="melhor"></p></div>
+
+<div id="lista"></div>
+
+<h2>Últimas verificações <small>valores do casal</small></h2>
+<table class="hist" id="hist"></table>
+
+<a class="botao" href="https://claude.ai/artifact/VgHiaeeHaKnBcGC8WEHTv1" target="_blank" rel="noopener">Ver histórico completo →</a>
+<p class="nota">Preços "a partir de", em reais, sem compra nem reserva. Confirme no site antes de pagar e veja se a mala está incluída.</p>
+
+<!-- DADOS: a tarefa agendada atualiza só este bloco -->
+<script id="alertas" type="application/json">
+{
+  "atualizado": "15/11/2026 às 14h",
+  "periodo": "tarde",
+  "rotas": [
+    {"id":"mad","grupo":"Europa · mar a mai/2027","tipo":"Ida · só ida","nome":"Salvador → Madri","valor":3432,"bom":4182,"det":"TAP, 1 conexão · datas próximas","tend":"igual","link":"https://www.google.com/travel/flights/flights-from-salvador-to-madrid.html?gl=BR&hl=pt-BR","fonte":"Google Voos"},
+    {"id":"bcn","grupo":"Europa · mar a mai/2027","tipo":"Ida · só ida","nome":"São Paulo → Barcelona","valor":3586,"bom":4358,"det":"Air Europa, 1 conexão · datas próximas","tend":"igual","link":"https://www.google.com/travel/flights/flights-from-sao-paulo-to-barcelona.html?gl=BR&hl=pt-BR","fonte":"Google Voos"},
+    {"id":"rom","grupo":"Europa · mar a mai/2027","tipo":"Volta · só ida, ~21 dias depois","nome":"Roma → Salvador ou São Paulo","valor":4610,"bom":6408,"det":"Até Salvador; até São Paulo R$ 4.616","tend":"igual","link":"https://www.google.com/travel/flights/flights-from-rome-to-sao-paulo.html?gl=BR&hl=pt-BR","fonte":"Google Voos"},
+    {"id":"slz","grupo":"Lençóis Maranhenses · 25/07 a 05/08/2027","tipo":"Ida e volta","nome":"Salvador ↔ São Luís","valor":1514,"bom":null,"det":"GOL tem voo direto (cerca de 2h15) · julho é alta temporada","tend":"igual","link":"https://www.skyscanner.com.br/rotas/ssa/slz/salvador-para-sao-luis.html","fonte":"Skyscanner"}
+  ],
+  "historico": [
+    {"quando":"15/11 tarde","mad":3432,"bcn":3586,"rom":4610,"slz":1514}
+  ]
+}
+</script>
+
+<script>
+let D={rotas:[],historico:[]};
+try{D=JSON.parse(document.getElementById('alertas').textContent)}catch(e){}
+const f=n=>n==null?'sem tarifa':'R$ '+Math.round(n).toLocaleString('pt-BR');
+const T={baixou:['t-baixou','⬇ baixou'],subiu:['t-subiu','⬆ subiu'],igual:['t-igual','= igual']};
+document.getElementById('quando').textContent='Atualizado '+(D.atualizado||'');
+// melhor oferta: a de maior folga abaixo do "bom preço"; sem referência, a mais barata
+let best=null,folga=-1e9;
+D.rotas.forEach(r=>{if(r.valor==null)return;const g=r.bom?(r.bom-r.valor)/r.bom:-1;if(g>folga){folga=g;best=r}});
+document.getElementById('melhor').innerHTML=best?`${best.nome}: <b>${f(best.valor)}</b> o casal · <a href="${best.link}" style="color:var(--terra);font-weight:700">ver no ${best.fonte} ↗</a>`:'Sem tarifa encontrada nesta verificação.';
+let grupo='',html='';
+D.rotas.forEach(r=>{
+  if(r.grupo!==grupo){grupo=r.grupo;html+=`<h2>${grupo}</h2>`;}
+  let selo='';
+  if(r.bom&&r.valor!=null){selo=r.valor<=r.bom*0.85?['s-bom','Bom preço']:r.valor<=r.bom?['s-normal','Dentro do bom preço']:['s-caro','Acima do bom preço'];selo=`<span class="selo ${selo[0]}">${selo[1]}</span>`;}
+  const t=T[r.tend]||T.igual;
+  html+=`<a class="rota" href="${r.link}">
+    <span class="tipo">${r.tipo}</span>
+    <span class="nome">${r.nome}</span><span class="valor">${f(r.valor)}</span>
+    <span class="det">${r.det}${r.bom?`<br>Bom preço: abaixo de ${f(r.bom)}`:''}<br>${selo}</span>
+    <span class="lado"><span class="tend ${t[0]}">${t[1]}</span><br>casal<br><span class="abrir">${r.fonte} ↗</span></span>
+  </a>`;
+});
+document.getElementById('lista').innerHTML=html;
+const cols=[['mad','Madri'],['bcn','Barcelona'],['rom','Roma'],['slz','Lençóis']];
+document.getElementById('hist').innerHTML='<tr><th>Quando</th>'+cols.map(c=>`<th>${c[1]}</th>`).join('')+'</tr>'+
+  D.historico.slice(-9).reverse().map(h=>`<tr><td>${h.quando}</td>`+cols.map(c=>`<td>${h[c[0]]==null?'·':Math.round(h[c[0]]).toLocaleString('pt-BR')}</td>`).join('')+'</tr>').join('');
+</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}</script>
+</body>
+</html>
