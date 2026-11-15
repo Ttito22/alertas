@@ -2,8 +2,7 @@ name: Notificar celular
 
 on:
   push:
-    branches: [main]
-    paths: [index.html]
+    branches: [main, teste-notificacao]
   workflow_dispatch:
 
 jobs:
